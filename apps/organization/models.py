@@ -12,7 +12,7 @@ from django.db import models
 class City(models.Model):
     name = models.CharField(max_length=20, verbose_name=u"城市")
     desc = models.CharField(max_length=200, verbose_name=u"描述")
-    add_time = models.DateTimeField(datetime.now, verbose_name=u"添加时间")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name=u"添加时间")
 
     class Meta:
         verbose_name = u"描述"
