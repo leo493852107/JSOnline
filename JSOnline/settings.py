@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'captcha',
+    'pure_pagination',
 
 ]
 
@@ -85,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.media',
             ],
         },
     },
@@ -157,6 +159,20 @@ EMAIL_HOST = "smtp.sina.cn"
 EMAIL_PORT = 25
 
 EMAIL_HOST_USER = "18395960706m@sina.cn"
-EMAIL_HOST_PASSWORD = "f689piy09agt65k"
+EMAIL_HOST_PASSWORD = "yourpassword"
 EMAIL_USE_TLS = False
 EMAIL_FROM = "18395960706m@sina.cn"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+# pure_pagination   PAGINATION_SETTINGS
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE_DISPLAYED': 10,
+    'MARGIN_PAGES_DISPLAYED': 2,
+
+    'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}
