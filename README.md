@@ -9,3 +9,6 @@
 
 '/statics/js/',
 '/statics/css/',
+
+### 3.password_reset.html
+提交要用 submit,复制过来的是button，坑啊!! 点了半天
