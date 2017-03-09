@@ -3,12 +3,18 @@
 
 from django.conf.urls import url, include
 
-from .views import OrgView, AddUserAskView
+from .views import OrgView, AddUserAskView, OrganizationHomeView, OrganizationCourseView, OrganizationDescView, OrganizationTeacherView, AddFavView
 
 
 urlpatterns = [
     # 课程机构列表页
     url(r'^list/$', OrgView.as_view(), name="org_list"),
     url(r'^add_ask/$', AddUserAskView.as_view(), name="add_ask"),
+    url(r'^home/(?P<org_id>\d+)/$', OrganizationHomeView.as_view(), name="org_home"),
+    url(r'^course/(?P<org_id>\d+)/$', OrganizationCourseView.as_view(), name="org_course"),
+    url(r'^desc/(?P<org_id>\d+)/$', OrganizationDescView.as_view(), name="org_desc"),
+    url(r'^teacher/(?P<org_id>\d+)/$', OrganizationTeacherView.as_view(), name="org_teacher"),
 
+    # 机构收藏
+    url(r'^add_fav/$', AddFavView.as_view(), name="add_fav"),
 ]

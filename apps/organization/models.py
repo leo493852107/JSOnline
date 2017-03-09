@@ -55,8 +55,12 @@ class Teacher(models.Model):
     points = models.CharField(max_length=50, verbose_name=u"教学特点")
     click_num = models.IntegerField(default=0, verbose_name=u"点击数")
     fav_num = models.IntegerField(default=0, verbose_name=u"收藏数")
+    image = models.ImageField(default='', upload_to="teachers/%Y/%m", verbose_name=u"老师头像")
     add_time = models.DateTimeField(default=datetime.now)
 
     class Meta:
         verbose_name = u"教师"
         verbose_name_plural = verbose_name
+
+    def __unicode__(self):
+        return self.name
