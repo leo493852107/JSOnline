@@ -40,7 +40,7 @@ class OrgView(View):
         if category:
             all_organizations = all_organizations.filter(category=category)
 
-        #
+
         sort = request.GET.get('sort', "")
         if sort:
             if sort == "students":
