@@ -3,7 +3,7 @@
 
 from django.conf.urls import url, include
 
-from .views import OrgView, AddUserAskView, OrganizationHomeView, OrganizationCourseView, OrganizationDescView, OrganizationTeacherView, AddFavView
+from .views import OrgView, AddUserAskView, OrganizationHomeView, OrganizationCourseView, OrganizationDescView, OrganizationTeacherView, AddFavView, TeacherListView
 
 
 urlpatterns = [
@@ -17,4 +17,7 @@ urlpatterns = [
 
     # 机构收藏
     url(r'^add_fav/$', AddFavView.as_view(), name="add_fav"),
+
+    # 讲师列表页
+    url(r'^teacher/list/$', TeacherListView.as_view(), name="teacher_list"),
 ]
