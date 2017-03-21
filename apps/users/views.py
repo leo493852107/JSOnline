@@ -9,13 +9,15 @@ from django.views.generic.base import View
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse
 
+from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+
 import json
 
 from .models import UserProfile, EmailVerifyRecord
 from .forms import LoginForm, RegisterForm, ForgetForm, ModifyPwdForm, UploadImageForm, UserInfoForm
 from utils.email_send import send_register_email
 
-from operation.models import UserCourse, UserFavorite
+from operation.models import UserCourse, UserFavorite, UserMessage
 from organization.models import CourseOrganization, Teacher
 from course.models import Course
 
@@ -66,6 +68,13 @@ class RegisterView(View):
             user_profile.password = make_password(password)
             user_profile.is_active = False
             user_profile.save()
+
+            # 写入欢迎注册消息
+            user_message = UserMessage()
+            user_message.user = user_profile.id
+            user_message.message = "欢迎注册牛逼在线网"
+            user_message.save()
+
 
             send_register_email(username, "register")
             return render(request, "login.html")
@@ -283,5 +292,30 @@ class MyFavCourseView(LoginRequireMixin, View):
             course_list.append(course)
         return render(request, 'usercenter-fav-course.html', {
             "course_list": course_list,
+
+        })
+
+
+class MyMessageView(LoginRequireMixin, View):
+    '''
+    我的消息
+    '''
+    def get(self, request):
+        all_messages = UserMessage.objects.filter(user=request.user.id)
+
+        # 对个人消息进行分页
+        try:
+            page = request.GET.get('page', 1)
+        except PageNotAnInteger:
+            page = 1
+
+        # Provide Paginator with the request object for complete querystring generation
+
+        p = Paginator(all_messages, 5, request=request)
+
+        messages = p.page(page)
+
+        return render(request, 'usercenter-message.html', {
+            'messages': messages,
 
         })
