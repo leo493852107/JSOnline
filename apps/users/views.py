@@ -354,6 +354,28 @@ class IndexView(View):
         })
 
 
+# class LoginUnsafeView(View):
+#     def get(self, request):
+#         return render(request, "login.html", {})
+#
+#     def post(self, request):
+#         username = request.POST.get("username", "")
+#         password = request.POST.get("password", "")
+#
+#         import MySQLdb
+#         conn = MySQLdb.connect(host="127.0.0.1", user='root', passwd='', db='jsonline', charset='utf8')
+#         cursor = conn.cursor()
+#         sql_select = "select * from users_userprofile WHERE email='{0}' and password='{1}'".format(username, password)
+#
+#         result = cursor.execute(sql_select)
+#
+#         for row in cursor.fetchall():
+#             # 查询到用户
+#
+#             pass
+#         print 'leo'
+
+
 def page_not_found(request):
     # 全局404处理函数
     from django.shortcuts import render_to_response

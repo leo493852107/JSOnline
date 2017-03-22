@@ -24,7 +24,8 @@ import xadmin
 from django.views.static import serve
 
 
-from users.views import LoginView, LogoutView, RegisterView, \
+from users.views import LoginView, \
+    LogoutView, RegisterView, \
     ActiveUserView, ForgetPasswordView, ResetView, ModifyPwdView, IndexView
 from organization.views import OrgView
 from JSOnline.settings import MEDIA_ROOT, STATIC_ROOT
@@ -34,6 +35,8 @@ urlpatterns = [
 
     url(r'^$', IndexView.as_view(), name="index"),
     url(r'^login/$', LoginView.as_view(), name="login"),
+    # url(r'^login/$', LoginUnsafeView.as_view(), name="login"),
+
     url(r'^logout/$', LogoutView.as_view(), name="logout"),
     url(r'register/$', RegisterView.as_view(), name="register"),
     url(r'^captcha/', include('captcha.urls')),
