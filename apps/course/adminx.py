@@ -40,6 +40,9 @@ class CourseAdmin(object):
     # 指明 detail 字段使用 ueditor 样式
     style_fields = {"detail": "ueditor"}
 
+    # 会覆盖自定义excel插件 (支持导入excel)
+    import_excel = True
+
     # 刷新时间 可选
     # refresh_times = [3, 5, 10]
 
@@ -57,6 +60,11 @@ class CourseAdmin(object):
             course_org = obj.course_org
             course_org.course_nums = Course.objects.filter(course_org=course_org).count()
             course_org.save()
+
+    def post(self, request, *args, **kwargs):
+        if 'excel' in request.FILES:
+            pass
+        return super(CourseAdmin, self).post(request, args, kwargs)
 
 
 
