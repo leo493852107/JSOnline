@@ -28,7 +28,7 @@ from users.views import LoginView, \
     LogoutView, RegisterView, \
     ActiveUserView, ForgetPasswordView, ResetView, ModifyPwdView, IndexView
 from organization.views import OrgView
-from JSOnline.settings import MEDIA_ROOT, STATIC_ROOT
+from JSOnline.settings import MEDIA_ROOT
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
@@ -54,7 +54,7 @@ urlpatterns = [
     # 配置上传文件的访问处理函数
     url(r'^media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
 
-    url(r'^static/(?P<path>.*)', serve, {"document_root": STATIC_ROOT}),
+    # url(r'^static/(?P<path>.*)', serve, {"document_root": STATIC_ROOT}),
 
     # 用户url配置
     url(r'^users/', include('users.urls', namespace='users')),
