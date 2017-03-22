@@ -37,6 +37,9 @@ class CourseAdmin(object):
     # 页面组装
     inlines = [LessonInline, CourseResourceInline]
 
+    # 指明 detail 字段使用 ueditor 样式
+    style_fields = {"detail": "ueditor"}
+
     # 刷新时间 可选
     # refresh_times = [3, 5, 10]
 

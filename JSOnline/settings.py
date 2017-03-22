@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'captcha',
     'pure_pagination',
+    'DjangoUeditor',
 
 ]
 
@@ -150,8 +151,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
-    '/statics/js/',
-    '/statics/css/',
+    # '/statics/js/',
+    # '/statics/css/',
 )
 
 
