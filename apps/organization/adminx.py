@@ -18,6 +18,9 @@ class CourseOrganizationAdmin(object):
     search_fields = ['name', 'desc', 'click_num', 'fav_num', 'image', 'address']
     list_filter = ['name', 'desc', 'click_num', 'fav_num', 'image', 'address', 'add_time']
 
+    # 设置外键为搜索模式
+    relfield_style = 'fk-ajax'
+
 
 class TeacherAdmin(object):
     list_display = ['organization', 'name', 'work_years', 'work_company', 'work_position', 'work_position', 'points', 'click_num', 'fav_num', 'add_time']
