@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from .models import Course, Lesson, Video, CourseResource, BannerCourse
+from organization.models import CourseOrganization
 
 import xadmin
 
@@ -17,9 +18,9 @@ class CourseResourceInline(object):
 
 
 class CourseAdmin(object):
-    list_display = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'fav_nums', 'image', 'click_num', 'add_time']
-    search_fields = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'fav_nums', 'image', 'click_num']
-    list_filter = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'fav_nums', 'image', 'click_num', 'add_time']
+    list_display = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'add_time', 'get_zj_nums', 'go_to']
+    search_fields = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students']
+    list_filter = ['name', 'desc', 'detail', 'degree', 'learn_times', 'students', 'add_time']
     # 根据点击数倒序排列
     ordering = ['-click_num']
 
@@ -27,17 +28,33 @@ class CourseAdmin(object):
     # readonly_fields = ['click_num', 'fav_nums']
     readonly_fields = ['fav_nums']
 
+    # 在列表页直接修改
+    list_editable = ['degree', 'desc']
+
     # 设置页面不显示
     exclude = ['click_num']
 
     # 页面组装
     inlines = [LessonInline, CourseResourceInline]
 
+    # 刷新时间 可选
+    # refresh_times = [3, 5, 10]
+
     # 轮播图的过滤 NO
     def queryset(self):
         qs = super(CourseAdmin, self).queryset()
         qs = qs.filter(is_banner=False)
         return qs
+
+    # 在保存课程的时候，统计课程机构数量
+    def save_models(self):
+        obj = self.new_obj
+        obj.save()
+        if obj.course_org is not None:
+            course_org = obj.course_org
+            course_org.course_nums = Course.objects.filter(course_org=course_org).count()
+            course_org.save()
+
 
 
 class BannnerCourseAdmin(object):
